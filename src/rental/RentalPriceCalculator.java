@@ -34,7 +34,7 @@ public class RentalPriceCalculator {
 	}
 
 	boolean hasLicenseBeenHeldLongEnough(RentalRequest request) {
-		return request.getYearsLicenseHeld() > MINIMUM_YEARS_LICENSE_HELD;
+		return request.getYearsLicenseHeld() >= MINIMUM_YEARS_LICENSE_HELD;
 	}
 
 	double getRentalEstimate(RentalRequest request) {
