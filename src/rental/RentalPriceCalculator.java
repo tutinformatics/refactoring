@@ -1,43 +1,44 @@
 package rental;
 
 public class RentalPriceCalculator {
-	
-	// age - age of driver
-	// licence - number of full years person holds driving licence
-	// clazz - class of the car from 1 (smallest) to 5 (largest) that person wishes to rent
-	// acc - has s/he caused any accidents within last year
-	// acc2 - has s/he participated (but not caused) in any accidents within last year
-	// season - if it is high season or not
-	public double price(int age, int licence, int clazz, boolean acc, boolean acc2, boolean season) {
+
+	final int ADULT = 18;
+	final int EXPERIENCED_ADULT = 21;
+
+	public double calculatePrice(int rentalAge, int drivingLicence, int carTypeBySize, boolean causedAccidents, boolean participatedInAccidents, boolean highSeason) {
 		
-		if (age < 18) {
+		if (rentalAge < ADULT) {
 			throw new IllegalArgumentException("Driver too young - cannot quote the price");
 		}
-		if (age <= 21 && clazz > 2) {
+		if (rentalAge <= EXPERIENCED_ADULT && carTypeBySize > 2) {
 			throw new UnsupportedOperationException("Drivers 21 y/o or less can only rent Class 1 vehicles");
 		}
 		
-		double rentalprice = age;
+		double rentalPrice = rentalAge;
 		
-		if (clazz >=4 && age <= 25 && season != false) {
-			rentalprice = rentalprice * 2;
+		if (carTypeBySize >=4 && rentalAge <= 25 && highSeason != false) {
+			rentalPrice = rentalPrice * 2;
 		}
 		
-		if (licence < 1) {
-			throw new IllegalArgumentException("Driver must hold driving licence at least for one year. Can not rent a car!");
+		if (drivingLicence < 1) {
+			throw new IllegalArgumentException("Driver must hold driving drivingLicence at least for one year. Can not rent a car!");
 		}
 		
-		if (licence < 3) {
-			rentalprice = rentalprice * 1.3;
+		if (drivingLicence < 3) {
+			rentalPrice = rentalPrice * 1.3;
 		}
 		
-		if (acc == true && age < 30) {
-			rentalprice += 15;
+		if (causedAccidents == true && rentalAge < 30) {
+			rentalPrice += 15;
 		}
 
-		if (rentalprice > 1000) {
+        if ((carTypeBySize = 4 || carTypeBySize = 5) && rentalAge <= 25 && highSeason = true){
+            rentalPrice * 1.5;
+        }
+
+		if (rentalPrice > 1000) {
 			return 1000.00;
 		}
-		return rentalprice;
+		return rentalPrice;
 	}
 }
