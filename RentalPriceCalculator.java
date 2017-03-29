@@ -1,6 +1,12 @@
 package rental;
 
-public class RentalPriceCalculator {	
+public class RentalPriceCalculator {
+	// age - age of driver
+	// licence - number of full years person holds driving licence
+	// clazz - class of the car from 1 (smallest) to 5 (largest) that person wishes to rent
+	// acc - has s/he caused any accidents within last year
+	// acc2 - has s/he participated (but not caused) in any accidents within last year
+	// season - if it is high season or not
 	private int age;
 	private int licence;
 	private int clazz;
@@ -8,19 +14,13 @@ public class RentalPriceCalculator {
 	private boolean season;
 	
 	RentalPriceCalculator(int age, int licence, int clazz, boolean accidentsCaused, boolean season){
-		age = age;
-		licence = licence;
-		clazz = clazz;
-		accidentsCaused = accidentsCaused;
-		season = season;
+		age = this.age;
+		licence = this.licence;
+		clazz = this.clazz;
+		accidentsCaused = this.accidentsCaused;
+		season = this.season;
 	}
 	
-	// age - age of driver
-	// licence - number of full years person holds driving licence
-	// clazz - class of the car from 1 (smallest) to 5 (largest) that person wishes to rent
-	// acc - has s/he caused any accidents within last year
-	// acc2 - has s/he participated (but not caused) in any accidents within last year
-	// season - if it is high season or not
 	public double calculatePrice() {
 		double rentalprice = age;
 		
@@ -42,5 +42,6 @@ public class RentalPriceCalculator {
 		}else{
 			return rentalprice;
 		}
+		return rentalprice;
 	}
 }
