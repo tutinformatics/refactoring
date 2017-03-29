@@ -1,7 +1,6 @@
 package rental;
 
 public class RentalPriceCalculator {
-	private double rentalprice;
 	
 	// age - age of driver
 	// licence - number of full years person holds driving licence
@@ -29,5 +28,6 @@ public class RentalPriceCalculator {
 			return rentalprice;
 		}
 		
+		return rentalprice;
 	}
 }
