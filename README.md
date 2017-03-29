@@ -4,11 +4,12 @@
 
 # Töö käik
 
-1 Fork'ige githubis see repositoorium enda kontole
-2 kloonige `git clone URL` abil see repo enda arvutisse
-3 Tehke kõik vajalikud muudatused ja commitige
-4 Tehke githubis originaalrepo jaoks pull request
-5 Hinde (2p) saavad tudengid, kes:
+Ülesande lahendamiseks toimige järgnevalt:
+1. Fork'ige githubis see repositoorium enda kontole
+2. kloonige `git clone URL` abil see repo enda arvutisse
+3. Tehke kõik vajalikud muudatused ja commitige
+4. Tehke githubis originaalrepo jaoks pull request
+5. Hinde (2p) saavad tudengid, kes:
  -- praktikumis kaasa töötasid
  -- kelle tiim tegi pull requesti korraliku koodiga
 
