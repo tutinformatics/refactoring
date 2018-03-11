@@ -6,11 +6,11 @@
 
 Ülesande lahendamiseks toimige järgnevalt:
 1. Fork'ige githubis see repositoorium enda kontole
-2. kloonige `git clone URL` abil see repo enda arvutisse
+2. kloonige `git clone URL` abil fork'itud repo enda arvutisse
 3. Tehke kõik vajalikud muudatused ja commitige
 4. Tehke githubis originaalrepo jaoks pull request
-5. Hinde (2p) saavad tudengid, kes:
- -- praktikumis kaasa töötasid
+5. Hinde (2p) saavad tudengid, kes:  
+ -- praktikumis kaasa töötasid  
  -- kelle tiim tegi pull requesti korraliku koodiga
 
 # Analüütiku/projektijuhi roll
@@ -19,12 +19,12 @@ Kui tiimis on analüütik, kes ei programmeeri, siis tuleb tal hinde saamiseks k
 
 Ärinõue: autot saab rentida alates 18. eluaastast
 Vajalikud testid:
-1. 17-aastane ei saa autot rentida
--- sisendite kombinatsioon: vanus: 17, [...]
--- oodatav väljund: Exception
-2. 18-aastane saab autot rentida
--- sisendite kombinatsioon: vanus: 18, [...]
--- oodatav väljund: hind 18-aastasele XXX EUR
+1. 17-aastane ei saa autot rentida  
+-- sisendite kombinatsioon: vanus: 17, [...]  
+-- oodatav väljund: Exception  
+2. 18-aastane saab autot rentida  
+-- sisendite kombinatsioon: vanus: 18, [...]  
+-- oodatav väljund: hind 18-aastasele XXX EUR  
 
 NB! Oodatavad väljundid sõltuvad ka teie programmi struktuurist. Kui originaalprogramm väljastab Exceptioni lõppkasutajale, siis teie võite vanusekontrolli viia eraldi meetodiks, mis tagastab vaid TRUE/FALSE
 
