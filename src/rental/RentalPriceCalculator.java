@@ -31,7 +31,7 @@ public class RentalPriceCalculator {
 			rentalprice = rentalprice * 1.3;
 		}
 		
-		if (hasYoungerDriverCausedAccidents(driverAge, accidentsCaused)) {
+		if (youngerDrivreHasCausedAccidentsInLastYear(driverAge, accidentsCaused)) {
 			rentalprice += 15;
 		}
 
@@ -45,7 +45,7 @@ public class RentalPriceCalculator {
 		return rentalprice > 1000;
 	}
 
-	private boolean hasYoungerDriverCausedAccidents(int driverAge, boolean accidentsCaused) {
+	private boolean youngerDrivreHasCausedAccidentsInLastYear(int driverAge, boolean accidentsCaused) {
 		return accidentsCaused && driverAge < 30;
 	}
 
