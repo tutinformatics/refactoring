@@ -3,6 +3,8 @@ package rental;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public class RentalPriceCalculatorTest {
 
 	private RentalPriceCalculator rentalPriceCalculator;
@@ -19,6 +21,7 @@ public class RentalPriceCalculatorTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testCanRentIs18YearsOld() {
-		rentalPriceCalculator.calculatePrice(18, 1, 1, false, false);
+		double price = rentalPriceCalculator.calculatePrice(18, 1, 1, false, false);
+		assertEquals(23.4, price, 0.1);
 	}
 }
