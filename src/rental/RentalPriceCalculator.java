@@ -29,7 +29,7 @@ public class RentalPriceCalculator {
         if (ageOfDriver < 18) {
             throw new IllegalArgumentException("Driver too young - cannot quote the price");
         }
-        if (ageOfDriver <= 21 && carClass > 2) {
+        if (ageOfDriver <= 21 && carClass >= 2) {
             throw new UnsupportedOperationException("Drivers 21 y/o or less can only rent Class 1 vehicles");
         }
     }

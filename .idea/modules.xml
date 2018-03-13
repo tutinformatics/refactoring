@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/RentalPriceCalculator.iml" filepath="$PROJECT_DIR$/RentalPriceCalculator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/refactoring.iml" filepath="$PROJECT_DIR$/refactoring.iml" />
     </modules>
   </component>
 </project>
