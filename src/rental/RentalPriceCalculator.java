@@ -1,7 +1,11 @@
 package rental;
 
 public class RentalPriceCalculator {
-	public double calculateRentalPrice(int driverAge, int licenceDurationYears, int priceCategory, boolean hasCausedLastYearAccidents, boolean isHighSeason) {
+    private static final double MAXIMUM_PRICE_PER_DAY = 1000.00;
+    private static final int ADDITIONAL_FEE = 15;
+    private static final double LICENSE_NEW_PRICE_COEFFICIENT = 1.3;
+
+    public double calculateRentalPrice(int driverAge, int licenceDurationYears, int priceCategory, boolean hasCausedLastYearAccidents, boolean isHighSeason) {
 	    validateRenterOrThrow(driverAge, licenceDurationYears, priceCategory);
 		
 		double rentalprice = getMinimumRentalPrice(driverAge);
@@ -11,15 +15,15 @@ public class RentalPriceCalculator {
 		}
 		
 		if (licenceDurationYears < 3) {
-			rentalprice = rentalprice * 1.3;
+			rentalprice = rentalprice * LICENSE_NEW_PRICE_COEFFICIENT;
 		}
 		
 		if (getsAdditionalFee(driverAge, hasCausedLastYearAccidents)) {
-			rentalprice += 15;
+			rentalprice += ADDITIONAL_FEE;
 		}
 
-		if (rentalprice > 1000) {
-			return 1000.00;
+		if (rentalprice > MAXIMUM_PRICE_PER_DAY) {
+            return MAXIMUM_PRICE_PER_DAY;
 		}
 
 		return rentalprice;
@@ -46,7 +50,7 @@ public class RentalPriceCalculator {
         }
 
         if (!canRentHigherClassVehicles(driverAge) && priceCategory > 2) {
-            throw new UnsupportedOperationException("Drivers 21 y/o or less can only rent Class 1 vehicles");
+            throw new IllegalArgumentException("Drivers 21 y/o or less can only rent Class 1 vehicles");
         }
 
         if (licenceDurationYears < 1) {
