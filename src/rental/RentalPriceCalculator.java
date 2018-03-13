@@ -1,43 +1,95 @@
 package rental;
 
 public class RentalPriceCalculator {
-	
-	// age - age of driver
-	// licence - number of full years person holds driving licence
-	// clazz - class of the car from 1 (smallest) to 5 (largest) that person wishes to rent
-	// acc - has s/he caused any accidents within last year
-	// acc2 - has s/he participated (but not caused) in any accidents within last year
-	// season - if it is high season or not
-	public double price(int age, int licence, int clazz, boolean acc, boolean acc2, boolean season) {
-		
-		if (age < 18) {
-			throw new IllegalArgumentException("Driver too young - cannot quote the price");
-		}
-		if (age <= 21 && clazz > 2) {
-			throw new UnsupportedOperationException("Drivers 21 y/o or less can only rent Class 1 vehicles");
-		}
-		
-		double rentalprice = age;
-		
-		if (clazz >=4 && age <= 25 && season != false) {
-			rentalprice = rentalprice * 2;
-		}
-		
-		if (licence < 1) {
-			throw new IllegalArgumentException("Driver must hold driving licence at least for one year. Can not rent a car!");
-		}
-		
-		if (licence < 3) {
-			rentalprice = rentalprice * 1.3;
-		}
-		
-		if (acc == true && age < 30) {
-			rentalprice += 15;
-		}
+	private static final double MAX_RENTAL_PRICE = 1000.0;
+	private static final int MINIMUM_YEARS_LICENSE_HELD = 1;
+	private static final int DRIVER_AGE_CUTOFF = 18;
 
-		if (rentalprice > 1000) {
-			return 1000.00;
+	public double price(RentalRequest request) throws InvalidRequestException
+	{
+		validateRequest(request);
+		double rentalEstimate = getRentalEstimate(request);
+		return getPriceFromEstimate(rentalEstimate);
+	}
+
+	void validateRequest(RentalRequest request) throws InvalidRequestException {
+		if (!isDriverOldEnough(request)) {
+			throw new InvalidRequestException(
+				"Driver too young - cannot quote the price");
 		}
-		return rentalprice;
+		
+		if (!hasLicenseBeenHeldLongEnough(request)) {
+			throw new InvalidRequestException(
+				"Driver has not held a license for long enough. Can not rent a car!");
+		}
+		
+		if (!isVehicleAllowedForDriverAge(request)) {
+			throw new InvalidRequestException(
+				"The vehicle class is not suitable for the driver's age");
+		}
+	}
+
+	boolean isDriverOldEnough(RentalRequest request) {
+		return request.getDriverAge() >= DRIVER_AGE_CUTOFF;
+	}
+
+	boolean hasLicenseBeenHeldLongEnough(RentalRequest request) {
+		return request.getYearsLicenseHeld() >= MINIMUM_YEARS_LICENSE_HELD;
+	}
+
+	double getRentalEstimate(RentalRequest request) {
+		double rentalEstimate = getInitialEstimate(request);
+		
+		rentalEstimate = adjustEstimateForSeason(rentalEstimate, request);
+		rentalEstimate = adjustEstimateForLicenseHeld(rentalEstimate, request);
+		rentalEstimate = adjustEstimateForAccidentStatus(rentalEstimate, request);
+		
+		return rentalEstimate;
+	}
+
+	double getInitialEstimate(RentalRequest request) {
+		return request.getDriverAge();
+	}
+
+	double adjustEstimateForSeason(double rentalEstimate, RentalRequest request)
+	{
+		VehicleClass vehicleClass = request.getVehicleClass();
+		
+		if ((vehicleClass == VehicleClass.FOURTH_CLASS ||  vehicleClass == VehicleClass.FIFTH_CLASS)
+			&& request.getDriverAge() <= 25 
+			&& !request.isHighSeason()) {
+			rentalEstimate = rentalEstimate * 2;
+		}
+		
+		return rentalEstimate;
+	}
+
+	double adjustEstimateForLicenseHeld(double rentalEstimate, RentalRequest request) {
+		if (request.getYearsLicenseHeld() < 3) {
+			rentalEstimate = rentalEstimate * 1.3;
+		}
+		
+		return rentalEstimate;
+	}
+
+	double adjustEstimateForAccidentStatus(double rentalEstimate, RentalRequest request) {
+		if (request.hasCausedAccidentsWithinLastYear()
+			&& request.getDriverAge() < 30) {
+			rentalEstimate += 15;
+		}
+		
+		return rentalEstimate;
+	}
+
+	boolean isVehicleAllowedForDriverAge(RentalRequest request) {
+		if (request.getDriverAge() <= 21) {
+			return request.getVehicleClass() == VehicleClass.FIRST_CLASS;
+		}
+		
+		return true;
+	}
+
+	double getPriceFromEstimate(double rentalEstimate) {
+		return Math.min(rentalEstimate, MAX_RENTAL_PRICE);
 	}
 }
