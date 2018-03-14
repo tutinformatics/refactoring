@@ -16,13 +16,13 @@ public class RentalPriceCalculator {
     public double price(int driverAge, int licenceAge, int carClass, boolean wasAccidentLastYear, boolean isSeasonHigh) {
 
         if (driverAge < MIN_DRIVER_AGE) {
-            throw new IllegalArgumentException("Driver too young - cannot quote the price");
+            throw new UnsupportedOperationException("Driver too young - cannot quote the price");
         }
         if (driverAge <= MIN_HIGH_CLASS_DRIVER_AGE && carClass > FIRST_HIGH_CLASS_INDEX) {
             throw new UnsupportedOperationException("Drivers 21 y/o or less can only rent Class 1 vehicles");
         }
         if (licenceAge < MIN_LICENSE_AGE) {
-            throw new IllegalArgumentException("Driver must hold driving licence at least for one year. Can not rent a car!");
+            throw new UnsupportedOperationException("Driver must hold driving licence at least for one year. Can not rent a car!");
         }
 
         double rentalPrice = driverAge;
