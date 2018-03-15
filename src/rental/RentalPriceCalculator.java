@@ -2,40 +2,48 @@ package rental;
 
 public class RentalPriceCalculator {
 	
+	private final int MIN_AGE = 18;
+	private final int MAX_RENTAL = 1000;
+	private final int MIN_LICENSE_YEAR = 1;
+	private final int YOUNG_DRIVER = 21;
+	
+	
 	// age - age of driver
 	// licence - number of full years person holds driving licence
 	// clazz - class of the car from 1 (smallest) to 5 (largest) that person wishes to rent
 	// acc - has s/he caused any accidents within last year
 	// acc2 - has s/he participated (but not caused) in any accidents within last year
 	// season - if it is high season or not
-	public double price(int age, int licence, int clazz, boolean acc, boolean acc2, boolean season) {
+	public double calc_rental_price(int age, int licence_year, int car_to_rent, boolean caused_accidents, boolean season) {
 		
-		if (age < 18) {
+		double rental_price = age;
+		
+		if (age < MIN_AGE) {
 			throw new IllegalArgumentException("Driver too young - cannot quote the price");
 		}
-		if (age <= 21 && clazz > 2) {
+		if (age <= YOUNG_DRIVER && car_to_rent > 2) {
 			throw new UnsupportedOperationException("Drivers 21 y/o or less can only rent Class 1 vehicles");
 		}
 		
-		double rentalprice = age;
 		
-		if (clazz >=4 && age <= 25 && season != false) {
-			rentalprice = rentalprice * 2;
+		
+		if (car_to_rent >=4 && age <= 25 && season != false) {
+			rental_price = rental_price * 2;
 		}
 		
-		if (licence < 1) {
+		if (licence_year < 1) {
 			throw new IllegalArgumentException("Driver must hold driving licence at least for one year. Can not rent a car!");
 		}
 		
-		if (licence < 3) {
+		if (licence_year < 3) {
 			rentalprice = rentalprice * 1.3;
 		}
 		
-		if (acc == true && age < 30) {
+		if (caused_accidents == true && age < 30) {
 			rentalprice += 15;
 		}
 
-		if (rentalprice > 1000) {
+		if (rentalprice > MAX_RENTAL) {
 			return 1000.00;
 		}
 		return rentalprice;
